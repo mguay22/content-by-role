@@ -14,3 +14,11 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+<?php
+
+function content_by_role_admin_display() {
+    echo "Hello World!";
+}
+
+?>
