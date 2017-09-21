@@ -39,7 +39,14 @@ class Content_By_Role_Admin {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
-
+        
+        /**
+         * @since    1.0.0
+         * @access   private
+         * @var      string    $admin_display    Displays the settings page.
+         */
+        private $admin_display;
+        
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -80,7 +87,7 @@ class Content_By_Role_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since   1.0.0
 	 */
 	public function enqueue_scripts() {
 
@@ -99,5 +106,40 @@ class Content_By_Role_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/content-by-role-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+        
+        /**
+	 * Load the required dependencies for the plugin admin area.
+	 *
+	 * Include the following files that make up the plugin admin area:
+	 *
+	 * - Content_By_Role_Admin_Display. Displays the backend settings page.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+        private function load_dependencies() {
+            
+            require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'partials/content-by-role-admin-display.php' );
+            
+            $this->admin_display = $this->plugin_name . '_admin_display';
+            
+        }
+        
+        /**
+         * Create the settings page for our plugin.
+         * 
+         * @since   1.0.0  
+         */
+        public function create_settings_page() {
+            
+            add_options_page( 
+                            'General Settings', 
+                            'Content by Role', 
+                            'manage_options',
+                            'content_by_role_settings_page.php', 
+                            'content_by_role_admin_display'
+                    );
+                        
+        }
 
 }
