@@ -58,6 +58,8 @@ class Content_By_Role_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+                
+                $this->load_dependencies();
 
 	}
 
@@ -119,10 +121,8 @@ class Content_By_Role_Admin {
 	 */
         private function load_dependencies() {
             
-            require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'partials/content-by-role-admin-display.php' );
-            
-            $this->admin_display = $this->plugin_name . '_admin_display';
-            
+            require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/content-by-role-admin-display.php' );
+                        
         }
         
         /**
@@ -132,6 +132,7 @@ class Content_By_Role_Admin {
          */
         public function create_settings_page() {
             
+            // TODO: Refractor this to make OOP
             add_options_page( 
                             'General Settings', 
                             'Content by Role', 

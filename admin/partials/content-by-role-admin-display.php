@@ -11,14 +11,8 @@
  * @package    Content_By_Role
  * @subpackage Content_By_Role/admin/partials
  */
-?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-
-<?php
-
+// TODO: Document this and built out the settings page interface
 function content_by_role_admin_display() {
-    echo "Hello World!";
+    echo "<h1>Hello World!</h1>";
 }
-
-?>
