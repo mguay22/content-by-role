@@ -39,13 +39,15 @@ class Content_By_Role_Admin {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
-        
-        /**
-         * @since    1.0.0
-         * @access   private
-         * @var      string    $admin_display    Displays the settings page.
-         */
-        private $admin_display;
+	
+	/**
+	 * The slug for the plugin setting page.
+	 * 
+	 * @since	 1.0.0
+	 * @access	 private
+	 * @var		 string	   $settings_page_slug	 The slug for the plugin settings page.
+	 */
+	private $settings_page_slug;
         
 	/**
 	 * Initialize the class and set its properties.
@@ -59,7 +61,8 @@ class Content_By_Role_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
                 
-                $this->load_dependencies();
+		$this->load_dependencies();
+		$this->settings_page_slug = 'content-by-role_settings_page';
 
 	}
 
@@ -132,15 +135,40 @@ class Content_By_Role_Admin {
          */
         public function create_settings_page() {
             
-            // TODO: Refractor this to make OOP
             add_options_page( 
-                            'General Settings', 
-                            'Content by Role', 
-                            'manage_options',
-                            'content_by_role_settings_page.php', 
-                            'content_by_role_admin_display'
-                    );
+				esc_html__( 'General Settings', 'content-by-role' ), 
+				esc_html__( 'Content by Role', 'content-by-role' ),
+				'manage_options',
+				$this->settings_page_slug, 
+				'content_by_role_admin_display'
+            );
                         
+        }
+        
+        /**
+         * Register our settings and create our fields
+         * 
+         * @since   1.0.0
+         */
+        public function register_settings() {
+			
+			register_setting( $this->settings_page_slug, 'content-by-role_settings' );
+			
+			add_settings_section(
+				'content-by-role_restricted_pages_settings',
+				esc_html__( 'Restricted Pages', 'content-by-role' ),
+				'content_by_role_restricted_pages_settings_section_header',
+				$this->settings_page_slug
+			);
+						
+			add_settings_field(
+				'content-by-role_restricted-pages_field',
+				esc_html__( 'Restricted Page', 'content-by-role' ),
+				'content_by_role_restricted_pages_select',
+				$this->settings_page_slug,
+				'content-by-role_restricted_pages_settings'
+			);
+            
         }
 
 }
