@@ -12,28 +12,56 @@
  * @subpackage Content_By_Role/admin/partials
  */
 
-// TODO: Document this and built out the settings page interface
-function content_by_role_admin_display() {
+function content_by_role_options_page() {
 	
 	?>
-	<form method='post'>
-	<?php
-	
-		echo "<h1>Hello World!</h1>";
-		settings_fields( 'content-by-role_settings' );
-		do_settings_sections( 'content-by-role_restricted_pages_settings' );
+	<form action='options.php' method='post'>
+
+		<h1>Content By Role</h1>
+
+		<?php
+		settings_fields( 'pluginPage' );
+		do_settings_sections( 'pluginPage' );
 		submit_button();
-	
-	?>
+		?>
+
 	</form>
 	<?php
-		
+
+			
 }
 
-function content_by_role_restricted_pages_settings_section_header() {
-	echo "<h2>Restricted Pages</h2>";
+function content_by_role_select_0_render() { 
+
+	?>
+	<select name='content_by_role_settings[content_by_role_select_0]'> 
+		<option value="">
+		<?php echo esc_attr( __( 'Select Page' ) ); ?></option> 
+		<?php 
+		 $pages = get_pages(); 
+		 foreach ( $pages as $page ) {
+		   $option = '<option value="' . $page->post_title . '"'. selected( $options['content_by_role_select_0'], $page->post_title ) . '>';
+		   $option .= $page->post_title;
+		   $option .= '</option>';
+		   echo $option;
+		 }
+		?>
+   </select>
+	<?php
+	
 }
 
-function content_by_role_restricted_pages_select() {
-	echo "<p>Restricted Page: </p>";
+function content_by_role_checkbox_0_render() {
+	
+	
+	
 }
+
+
+function content_by_role_settings_section_callback(  ) { 
+
+	echo __( 'Choose your restricted pages below and assign a redirect based on the users role',
+	'content-by-role' );
+
+}
+

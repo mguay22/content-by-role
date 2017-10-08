@@ -135,40 +135,48 @@ class Content_By_Role_Admin {
          */
         public function create_settings_page() {
             
-            add_options_page( 
-				esc_html__( 'General Settings', 'content-by-role' ), 
-				esc_html__( 'Content by Role', 'content-by-role' ),
-				'manage_options',
-				$this->settings_page_slug, 
-				'content_by_role_admin_display'
-            );
-                        
-        }
-        
-        /**
-         * Register our settings and create our fields
-         * 
-         * @since   1.0.0
-         */
-        public function register_settings() {
-			
-			register_setting( $this->settings_page_slug, 'content-by-role_settings' );
-			
-			add_settings_section(
-				'content-by-role_restricted_pages_settings',
-				esc_html__( 'Restricted Pages', 'content-by-role' ),
-				'content_by_role_restricted_pages_settings_section_header',
-				$this->settings_page_slug
+			add_options_page( 
+			'Content By Role', 
+			'Content By Role', 
+			'manage_options', 
+			'content_by_role', 
+			'content_by_role_options_page' 
 			);
-						
-			add_settings_field(
-				'content-by-role_restricted-pages_field',
-				esc_html__( 'Restricted Page', 'content-by-role' ),
-				'content_by_role_restricted_pages_select',
-				$this->settings_page_slug,
-				'content-by-role_restricted_pages_settings'
-			);
-            
+             
         }
+		
+		/**
+		 * Initialize the settings page
+		 * 
+		 * @since	 1.0.0
+		 */
+		public function settings_init() {
+			  
+			register_setting( 'pluginPage', 'content_by_role_settings' );
 
+			add_settings_section(
+				'content_by_role_pluginPage_section', 
+				__( 'Restricted Pages', 'content-by-role' ), 
+				'content_by_role_settings_section_callback', 
+				'pluginPage'
+			);
+
+			add_settings_field( 
+				'content_by_role_select_0', 
+				__( 'Restricted Page:', 'content-by-role' ), 
+				'content_by_role_select_0_render', 
+				'pluginPage', 
+				'content_by_role_pluginPage_section' 
+			);
+			
+			add_settings_field(
+				'content_by_role_checkbox_0',
+				__( 'Restricted Roles:', 'content-by-role' ),
+				'content_by_role_checkbox_0_render',
+				'pluginPage',
+				'content_by_role_pluginPage_section'
+			);
+	
+		}
+		
 }
