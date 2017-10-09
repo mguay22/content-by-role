@@ -33,6 +33,7 @@ function content_by_role_options_page() {
 
 function content_by_role_select_0_render() { 
 
+	$options = get_option( 'content_by_role_settings' );
 	?>
 	<select name='content_by_role_settings[content_by_role_select_0]'> 
 		<option value="">
@@ -54,7 +55,27 @@ function content_by_role_select_0_render() {
 function content_by_role_checkbox_0_render() {
 	
 	
+	$roles = wp_roles()->get_names();
+	$options = get_option( 'content_by_role_settings' );
+	$i = 0;
 	
+	foreach( $roles as $role ) {
+		
+		
+		$option = '<input type="checkbox" name="content_by_role_settings[content_by_role_checkbox_0][]" value="' . translate_user_role( $role ) . '" '; 
+		if ( isset( $options['content_by_role_checkbox_0'][$i] ) ) {
+		$option .= checked( $options['content_by_role_checkbox_0'][$i], translate_user_role( $role ), false );
+		}
+		$option .= '"/>';
+		
+		$option_label = '<label for="content_by_role_settings[content_by_role_checkbox_0]">' . translate_user_role( $role ) . '</label>';
+		
+		echo $option;
+		echo $option_label;
+		
+		$i += 1;
+	}
+
 }
 
 
