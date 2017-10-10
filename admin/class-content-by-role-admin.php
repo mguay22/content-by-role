@@ -176,6 +176,14 @@ class Content_By_Role_Admin {
 				'pluginPage',
 				'content_by_role_pluginPage_section'
 			);
+			
+			add_settings_field(
+				'content_by_role_input_0',
+				__( 'Redirect: ', 'content-by-role' ),
+				'content_by_role_input_0_render',
+				'pluginPage',
+				'content_by_role_pluginPage_section'
+			);
 	
 		}
 		
