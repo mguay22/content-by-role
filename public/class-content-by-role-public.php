@@ -40,6 +40,8 @@ class Content_By_Role_Public {
 	 */
 	private $version;
 
+	private $plugin_settings;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,6 +53,7 @@ class Content_By_Role_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->plugin_settings = get_option( 'content_by_role_settings' );
 
 	}
 
@@ -97,6 +100,12 @@ class Content_By_Role_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/content-by-role-public.js', array( 'jquery' ), $this->version, false );
+
+	}
+
+	public function add_redirect() {
+
+
 
 	}
 
