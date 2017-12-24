@@ -95,3 +95,10 @@ function content_by_role_settings_section_callback(  ) {
 	'content-by-role' );
 
 }
+
+function content_by_role_redirect_table_render() {
+	
+	include 'content-by-role-redirect-table.php';
+	content_by_role_redirect_table();
+	
+}

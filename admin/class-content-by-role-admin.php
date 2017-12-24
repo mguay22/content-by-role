@@ -86,7 +86,8 @@ class Content_By_Role_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/content-by-role-admin.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+		
 	}
 
 	/**
@@ -118,73 +119,85 @@ class Content_By_Role_Admin {
 	 * Include the following files that make up the plugin admin area:
 	 *
 	 * - Content_By_Role_Admin_Display. Displays the backend settings page.
-	 *
+	 * - Content_by_Role_Redirect_Table. Displays all currently saved redirects in a table format.
+	 * 
 	 * @since    1.0.0
 	 * @access   private
 	 */
-        private function load_dependencies() {
-            
-            require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/content-by-role-admin-display.php' );
-                        
-        }
+	private function load_dependencies() {
+
+		require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/content-by-role-admin-display.php' );
+		
+	}
         
-        /**
-         * Create the settings page for our plugin.
-         * 
-         * @since   1.0.0  
-         */
-        public function create_settings_page() {
-            
-			add_options_page( 
-			'Content By Role', 
-			'Content By Role', 
-			'manage_options', 
-			'content_by_role', 
-			'content_by_role_options_page' 
-			);
-             
-        }
+	/**
+	 * Create the settings page for our plugin.
+	 * 
+	 * @since   1.0.0  
+	 */
+	public function create_settings_page() {
+
+		add_options_page( 
+		'Content By Role', 
+		'Content By Role', 
+		'manage_options', 
+		'content_by_role', 
+		'content_by_role_options_page' 
+		);
 		
-		/**
-		 * Initialize the settings page
-		 * 
-		 * @since	 1.0.0
-		 */
-		public function settings_init() {
-			  
-			register_setting( 'pluginPage', 'content_by_role_settings' );
+		
+		
+	}
+		
+	/**
+	 * Initialize the settings page
+	 * 
+	 * @since	 1.0.0
+	 */
+	public function settings_init() {
 
-			add_settings_section(
-				'content_by_role_pluginPage_section', 
-				__( 'Restricted Pages', 'content-by-role' ), 
-				'content_by_role_settings_section_callback', 
-				'pluginPage'
-			);
+		register_setting( 'pluginPage', 'content_by_role_settings' );
 
-			add_settings_field( 
-				'content_by_role_select_0', 
-				__( 'Restricted Page:', 'content-by-role' ), 
-				'content_by_role_select_0_render', 
-				'pluginPage', 
-				'content_by_role_pluginPage_section' 
-			);
-			
-			add_settings_field(
-				'content_by_role_checkbox_0',
-				__( 'Restricted Roles:', 'content-by-role' ),
-				'content_by_role_checkbox_0_render',
-				'pluginPage',
-				'content_by_role_pluginPage_section'
-			);
-			
-			add_settings_field(
-				'content_by_role_input_0',
-				__( 'Redirect: ', 'content-by-role' ),
-				'content_by_role_input_0_render',
-				'pluginPage',
-				'content_by_role_pluginPage_section'
-			);
+		add_settings_section(
+			'content_by_role_pluginPage_section', 
+			__( 'Restricted Pages', 'content-by-role' ), 
+			'content_by_role_settings_section_callback', 
+			'pluginPage'
+		);
+
+		add_settings_field( 
+			'content_by_role_select_0', 
+			__( 'Restricted Page:', 'content-by-role' ), 
+			'content_by_role_select_0_render', 
+			'pluginPage', 
+			'content_by_role_pluginPage_section' 
+		);
+
+		add_settings_field(
+			'content_by_role_checkbox_0',
+			__( 'Restricted Roles:', 'content-by-role' ),
+			'content_by_role_checkbox_0_render',
+			'pluginPage',
+			'content_by_role_pluginPage_section'
+		);
+
+		add_settings_field(
+			'content_by_role_input_0',
+			__( 'Redirect: ', 'content-by-role' ),
+			'content_by_role_input_0_render',
+			'pluginPage',
+			'content_by_role_pluginPage_section'
+		);
+		
+		add_settings_field(
+			'content_by_role_redirect_table',
+			__( '', 'content-by-role' ),
+			'content_by_role_redirect_table_render',
+			'pluginPage',
+			'content_by_role_pluginPage_section'
+		);
+		
+
+	}
 	
-		}
-		
 }
