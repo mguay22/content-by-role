@@ -54,7 +54,8 @@ class Content_By_Role_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->plugin_settings = get_option( 'content_by_role_settings' );
-
+		//$this->add_redirect();
+		
 	}
 
 	/**
@@ -103,10 +104,30 @@ class Content_By_Role_Public {
 
 	}
 
-	public function add_redirect() {
+	public function add_redirect( $user ) {
 
+		$redirect_page = $this->plugin_settings['content_by_role_select_0'];
+		
+		if ( !empty( $this->plugin_settings['content_by_role_checkbox_0'] ) ) {
+			$restricted_roles = $this->plugin_settings['content_by_role_checkbox_0'];
+		}
+				
+		if ( !empty( $restricted_roles ) ) {
+		
+			$user = $user ? new WP_User( $user ) : wp_get_current_user();
+			$user = $user->roles ? $user->roles[0] : false;
+			$redirect = $this->plugin_settings['content_by_role_input_0'];
 
+			$restricted_roles = array_map('strtolower', $restricted_roles);	
 
+			if ( is_page( $redirect_page ) ) {
+				if ( in_array( $user, $restricted_roles ) ) {
+					wp_redirect( $redirect );
+				}
+			}
+		
+		}
+		
 	}
 
 }

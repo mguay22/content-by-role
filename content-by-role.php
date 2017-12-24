@@ -13,7 +13,7 @@
  * @package           Content_By_Role
  *
  * @wordpress-plugin
- * Plugin Name:       Content by Role
+ * Plugin Name:       Content By Role
  * Plugin URI:        https://wordpress.org/plugins/
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
