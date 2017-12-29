@@ -39,9 +39,9 @@ class Content_By_Role_Public {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
-
-	private $plugin_settings;
-
+	
+	private $data;
+	
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -50,11 +50,14 @@ class Content_By_Role_Public {
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
+		global $wpdb;
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->plugin_settings = get_option( 'content_by_role_settings' );
-		//$this->add_redirect();
+	
+		// Convert to readable array
+		$this->data = json_decode(json_encode( $wpdb->get_results( 'SELECT * FROM wp_content_by_role' ) ), True);
+
 		
 	}
 
@@ -105,23 +108,19 @@ class Content_By_Role_Public {
 	}
 
 	public function add_redirect( $user ) {
-
-		$redirect_page = $this->plugin_settings['content_by_role_select_0'];
 		
-		if ( !empty( $this->plugin_settings['content_by_role_checkbox_0'] ) ) {
-			$restricted_roles = $this->plugin_settings['content_by_role_checkbox_0'];
-		}
+		$user = $user ? new WP_User( $user ) : wp_get_current_user();
+		$user = $user->roles ? $user->roles[0] : false;
 				
-		if ( !empty( $restricted_roles ) ) {
-		
-			$user = $user ? new WP_User( $user ) : wp_get_current_user();
-			$user = $user->roles ? $user->roles[0] : false;
-			$redirect = $this->plugin_settings['content_by_role_input_0'];
+		for ($i = 0; $i < sizeof($this->data); $i++) {
+			$current_row = $this->data[$i];
 
-			$restricted_roles = array_map('strtolower', $restricted_roles);	
-
-			if ( is_page( $redirect_page ) ) {
-				if ( in_array( $user, $restricted_roles ) ) {
+			$restricted_page = $current_row['restricted_page'];
+			$role = $current_row['role'];
+			$redirect = $current_row['redirect_url'];
+						
+			if ( is_page( $restricted_page ) ) {
+				if ( $user == strtolower( $role ) ) {
 					wp_redirect( $redirect );
 				}
 			}

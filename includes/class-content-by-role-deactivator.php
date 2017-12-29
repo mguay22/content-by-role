@@ -30,7 +30,7 @@ class Content_By_Role_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		
 	}
 
 }

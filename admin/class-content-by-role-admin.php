@@ -143,9 +143,7 @@ class Content_By_Role_Admin {
 		'manage_options', 
 		'content_by_role', 
 		'content_by_role_options_page' 
-		);
-		
-		
+		);	
 		
 	}
 		
@@ -156,7 +154,7 @@ class Content_By_Role_Admin {
 	 */
 	public function settings_init() {
 
-		register_setting( 'pluginPage', 'content_by_role_settings' );
+		register_setting( 'pluginPage', 'content_by_role_settings', array('sanitize_callback' => 'save_to_database') );
 
 		add_settings_section(
 			'content_by_role_pluginPage_section', 
@@ -195,8 +193,7 @@ class Content_By_Role_Admin {
 			'content_by_role_redirect_table_render',
 			'pluginPage',
 			'content_by_role_pluginPage_section'
-		);
-		
+		);				
 
 	}
 	
