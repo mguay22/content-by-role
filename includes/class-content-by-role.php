@@ -67,7 +67,7 @@ class Content_By_Role {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_VERSION' ) ) {
+		if ( defined( 'CONTENT_BY_ROLE_VERSION' ) ) {
 			$this->version = PLUGIN_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -171,7 +171,7 @@ class Content_By_Role {
 
 		$plugin_public = new Content_By_Role_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'add_redirect' );
-	
+
 	}
 
 	/**
