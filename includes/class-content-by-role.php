@@ -155,7 +155,6 @@ class Content_By_Role {
 		$plugin_admin = new Content_By_Role_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_settings_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
 
@@ -171,9 +170,6 @@ class Content_By_Role {
 	private function define_public_hooks() {
 
 		$plugin_public = new Content_By_Role_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'add_redirect' );
 	
 	}

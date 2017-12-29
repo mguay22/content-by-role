@@ -41,17 +41,7 @@ function activate_content_by_role() {
 	Content_By_Role_Activator::activate();
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-content-by-role-deactivator.php
- */
-function deactivate_content_by_role() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-content-by-role-deactivator.php';
-	Content_By_Role_Deactivator::deactivate();
-}
-
 register_activation_hook( __FILE__, 'activate_content_by_role' );
-register_deactivation_hook( __FILE__, 'deactivate_content_by_role' );
 
 /**
  * The core plugin class that is used to define internationalization,

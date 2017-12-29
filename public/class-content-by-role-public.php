@@ -39,7 +39,7 @@ class Content_By_Role_Public {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
-	
+
 	/**
 	 * All currently saved redirects
 	 *
@@ -48,7 +48,7 @@ class Content_By_Role_Public {
 	 * @var      array    $redirects    All redirects
 	 */
 	private $redirects;
-	
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -57,17 +57,13 @@ class Content_By_Role_Public {
 	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-		global $wpdb;
-
+		
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-	
-		// Convert to readable array
-		$this->redirects = json_decode(json_encode( $wpdb->get_results( 'SELECT * FROM wp_content_by_role' ) ), True);
 
-		
+
 	}
-	
+
 	/**
 	 * Adds the redirects to the correct page
 	 *
@@ -75,27 +71,31 @@ class Content_By_Role_Public {
 	 * @param      Object    $user       The current user
 	 */
 	public function add_redirect( $user ) {
-		
+		global $wpdb;
+
+		// Convert to readable array
+		$this->redirects = json_decode(json_encode( $wpdb->get_results( 'SELECT * FROM wp_content_by_role' ) ), True);
+
 		// Get the current user role, set to guest if not logged in
 		$user = $user ? new WP_User( $user ) : wp_get_current_user();
 		$user = $user->roles ? $user->roles[0] : 'guest';
-		
+
 		for ($i = 0; $i < sizeof($this->redirects); $i++) {
 			$current_row = $this->redirects[$i];
 
 			$restricted_page = $current_row['restricted_page'];
 			$role = $current_row['role'];
 			$redirect = $current_row['redirect_url'];
-			
+
 			// If this page matches all criteria for redirect, then execute it
 			if ( is_page( $restricted_page ) ) {
 				if ( $user == strtolower( $role ) ) {
 					wp_redirect( $redirect );
 				}
 			}
-		
+
 		}
-		
+
 	}
 
 }
