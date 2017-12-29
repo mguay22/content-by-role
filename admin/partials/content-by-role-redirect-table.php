@@ -1,14 +1,20 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Generates the table of current redirects on the plugin settings page
+ *
+ * This file is used to markup and populate the table of current redirects on the settings page
+ *
+ * @link       https://github.com/mguay22/content-by-role
+ * @since      1.0.0
+ *
+ * @package    Content_By_Role
+ * @subpackage Content_By_Role/admin/partials
  */
 
 function content_by_role_redirect_table() {
 	
-	// Get the current redirects store in the database
+	// Get the current redirects stored in the database
 	global $wpdb;
 	$results = $wpdb->get_results( 'SELECT * FROM wp_content_by_role' );
 	
@@ -30,6 +36,7 @@ function content_by_role_redirect_table() {
 		<tbody>
 		  <?php
 		  
+		  // Go through redirects and output to table
 		  for ($i = 0; $i < sizeof($results_array); $i++) {
 			$current_row = $results_array[$i];
 
@@ -40,7 +47,9 @@ function content_by_role_redirect_table() {
 			?>
 			
 			<tr>
-				<th scope="row"><a href="#remove_redirect">Delete</a></th>
+				<th scope="row">
+					<input type='checkbox' name="delete_<?php echo $i; ?>" value='Delete' />
+				</th>
 				<td><?php echo $restricted_page; ?></td>
 				<td><?php echo $role; ?></td>
 				<td><?php echo $redirect; ?></td>

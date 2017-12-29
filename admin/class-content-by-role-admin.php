@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://www.example.com/
+ * @link       https://github.com/mguay22/content-by-role
  * @since      1.0.0
  *
  * @package    Content_By_Role
@@ -52,7 +52,7 @@ class Content_By_Role_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since      1.0.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -73,53 +73,16 @@ class Content_By_Role_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Content_By_Role_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Content_By_Role_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/content-by-role-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
 		
 	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since   1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Content_By_Role_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Content_By_Role_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/content-by-role-admin.js', array( 'jquery' ), $this->version, false );
-
-	}
         
-        /**
+	 /**
 	 * Load the required dependencies for the plugin admin area.
 	 *
 	 * Include the following files that make up the plugin admin area:
 	 *
 	 * - Content_By_Role_Admin_Display. Displays the backend settings page.
-	 * - Content_by_Role_Redirect_Table. Displays all currently saved redirects in a table format.
 	 * 
 	 * @since    1.0.0
 	 * @access   private
@@ -154,11 +117,11 @@ class Content_By_Role_Admin {
 	 */
 	public function settings_init() {
 
-		register_setting( 'pluginPage', 'content_by_role_settings', array('sanitize_callback' => 'save_to_database') );
+		register_setting( 'pluginPage', 'content_by_role_settings', array('sanitize_callback' => 'content_by_role_save_data') );
 
 		add_settings_section(
 			'content_by_role_pluginPage_section', 
-			__( 'Restricted Pages', 'content-by-role' ), 
+			__( '', 'content-by-role' ), 
 			'content_by_role_settings_section_callback', 
 			'pluginPage'
 		);

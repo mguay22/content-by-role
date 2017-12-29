@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://www.example.com/
+ * @link       https://github.com/mguay22/content-by-role
  * @since      1.0.0
  *
  * @package    Content_By_Role
@@ -40,7 +40,14 @@ class Content_By_Role_Public {
 	 */
 	private $version;
 	
-	private $data;
+	/**
+	 * All currently saved redirects
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $redirects    All redirects
+	 */
+	private $redirects;
 	
 	/**
 	 * Initialize the class and set its properties.
@@ -56,69 +63,31 @@ class Content_By_Role_Public {
 		$this->version = $version;
 	
 		// Convert to readable array
-		$this->data = json_decode(json_encode( $wpdb->get_results( 'SELECT * FROM wp_content_by_role' ) ), True);
+		$this->redirects = json_decode(json_encode( $wpdb->get_results( 'SELECT * FROM wp_content_by_role' ) ), True);
 
 		
 	}
-
+	
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
+	 * Adds the redirects to the correct page
 	 *
 	 * @since    1.0.0
+	 * @param      Object    $user       The current user
 	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Content_By_Role_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Content_By_Role_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/content-by-role-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Content_By_Role_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Content_By_Role_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/content-by-role-public.js', array( 'jquery' ), $this->version, false );
-
-	}
-
 	public function add_redirect( $user ) {
 		
+		// Get the current user role, set to guest if not logged in
 		$user = $user ? new WP_User( $user ) : wp_get_current_user();
-		$user = $user->roles ? $user->roles[0] : false;
-				
-		for ($i = 0; $i < sizeof($this->data); $i++) {
-			$current_row = $this->data[$i];
+		$user = $user->roles ? $user->roles[0] : 'guest';
+		
+		for ($i = 0; $i < sizeof($this->redirects); $i++) {
+			$current_row = $this->redirects[$i];
 
 			$restricted_page = $current_row['restricted_page'];
 			$role = $current_row['role'];
 			$redirect = $current_row['redirect_url'];
-						
+			
+			// If this page matches all criteria for redirect, then execute it
 			if ( is_page( $restricted_page ) ) {
 				if ( $user == strtolower( $role ) ) {
 					wp_redirect( $redirect );

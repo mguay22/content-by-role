@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://www.example.com/
+ * @link       https://github.com/mguay22/content-by-role
  * @since      1.0.0
  *
  * @package    Content_By_Role

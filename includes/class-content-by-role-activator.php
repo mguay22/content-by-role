@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       http://www.example.com/
+ * @link       https://github.com/mguay22/content-by-role
  * @since      1.0.0
  *
  * @package    Content_By_Role
@@ -23,16 +23,11 @@
 class Content_By_Role_Activator {
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
+	 * Create table for database
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
-		// Create table
-		// TODO: Finish table
-		
+	public static function activate() {		
 		global $wpdb;
 		$table_name = $wpdb->prefix . "content_by_role";
 		

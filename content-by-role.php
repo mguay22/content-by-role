@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://www.example.com/
+ * @link			  https://github.com/mguay22/content-by-role
  * @since             1.0.0
  * @package           Content_By_Role
  *
  * @wordpress-plugin
  * Plugin Name:       Content By Role
- * Plugin URI:        https://wordpress.org/plugins/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        https://wordpress.org/plugins/content-by-role
+ * Description:       Allows multiple redirects to be added to a restricted page based off of the user's role on the site.
  * Version:           1.0.0
  * Author:            Michael Guay
- * Author URI:        http://www.example.com/
+ * Author URI:        https://github.com/mguay22
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       content-by-role
