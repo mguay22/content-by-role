@@ -11,11 +11,9 @@ Content By Role allows for multiple redirects to be added to a restricted page b
 
 == Description ==
 
-This role restricting plugin is lightweight and simple to use. It allows for more than one redirect rule to be added to a page
-based off of a user's role.
+This role restricting plugin is lightweight and simple to use. It allows for more than one redirect rule to be added to a page based off of a user's role.
 
-I developed this plugin to make it easier to add multiple role based redirects to a single page. I am actively developing this plugin
-so if you have any questions, suggestions, or bugs to report - please do so in the Support section.
+I developed this plugin to make it easier to add multiple role based redirects to a single page. I am actively developing this plugin so if you have any questions, suggestions, or bugs to report - please do so in the Support section.
 
 == Installation ==
 

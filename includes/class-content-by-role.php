@@ -68,7 +68,7 @@ class Content_By_Role {
 	 */
 	public function __construct() {
 		if ( defined( 'CONTENT_BY_ROLE_VERSION' ) ) {
-			$this->version = PLUGIN_VERSION;
+			$this->version = CONTENT_BY_ROLE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
